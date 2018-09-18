@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { persistStore } from "redux-persist";
 import AppBar from "@material-ui/core/AppBar";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -6,6 +7,7 @@ import { FormattedMessage } from "react-intl";
 import Grid from "@material-ui/core/Grid";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import classNames from "classnames";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -14,7 +16,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import LanguageIcon from "@material-ui/icons/Language";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
 import EventIcon from "@material-ui/icons/Event";
+import CommentIcon from "@material-ui/icons/Comment";
+import SendIcon from "@material-ui/icons/Send";
+import SettingsIcon from "@material-ui/icons/Settings";
 import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
@@ -23,9 +29,9 @@ import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
-import { generateKey } from "./_utils";
+import LogoWhite from "../images/logo/JLL_Logo.png";
 
-const drawerWidth = 200;
+const drawerWidth = 240;
 
 // write down all the styles into an object
 const styles = (theme) => ({
@@ -35,10 +41,31 @@ const styles = (theme) => ({
     flex: {
         display: "flex"
     },
+    drawerList: {
+        "& div:last-child": {
+            marginTop: "auto"
+        }
+    },
+    drawerUl: {
+        display: "flex",
+        flexDirection: "column",
+        height: "100%"
+    },
     drawerPaper: {
         position: "relative",
         width: drawerWidth,
+        whiteSpace: "nowrap",
         height: "100%"
+    },
+    drawerPaperMd: {
+        [theme.breakpoints.down("sm")]: {
+            overflowX: "hidden",
+            width: theme.spacing.unit * 7,
+            [theme.breakpoints.up("sm")]: {
+                width: theme.spacing.unit * 9
+            },
+            height: "100%"
+        }
     },
     content: {
         flexGrow: 1,
@@ -54,13 +81,8 @@ const styles = (theme) => ({
         alignItems: "center",
         fontSize: "14px"
     },
-    drawer: {
-        primary: {
-            color: "#808080"
-        }
-    },
     navIconHide: {
-        [theme.breakpoints.up("md")]: {
+        [theme.breakpoints.up("sm")]: {
             display: "none"
         }
     },
@@ -70,29 +92,45 @@ const styles = (theme) => ({
     }
 });
 
+let drawerConfig = [
+    { link: "/performance", icon: <EqualizerIcon /> },
+    { link: "/events", icon: <EventIcon /> },
+    { link: "/comments", icon: <CommentIcon /> },
+    { link: "/actions", icon: <SendIcon /> },
+    { link: "/settings", icon: <SettingsIcon /> }
+];
+
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
             value: 0,
-            tabName: ["performance", "events", "comments", "actions", "settings"],
             mobileOpen: false,
-            open: false
+            open: false,
+            activeDrawer: drawerConfig.findIndex(({ link }) => this.props.history.location.pathname.includes(link))
         };
+    }
+
+    componentWillUnmount() {
+    
     }
 
     handleDrawerToggle = () => {
         this.setState((state) => ({ mobileOpen: !state.mobileOpen }));
     };
 
-    handleClick = (e, name, value, index) => {
+    handleDrawerClick = (e, name, value, index) => {
         this.setState(
-            {
-                ...this.state,
-                [name]: value
+            (prevState) => {
+                let direction = prevState[name] > index ? "up" : "down";
+                this.props.slideDirection(direction);
+                return {
+                    ...this.state,
+                    [name]: index
+                };
             },
             () => {
-                this.props.history.push(`/${this.state.tabName[index]}`);
+                this.props.history.push(drawerConfig[index].link);
             }
         );
     };
@@ -123,13 +161,11 @@ class Header extends Component {
                 <div className={classes.toolbar} />
                 <FormattedMessage id={`header.drawers`}>
                     {(msg) => (
-                        <List onClick={this.handleDrawerToggle}>
+                        <List className={classNames(classes.drawerUl, classes.drawerList)} onClick={this.handleDrawerToggle}>
                             {msg.split(",").map((value, index) => (
-                                <ListItem onClick={(e) => this.handleClick(e, "drawer", value, index)} key={value} button>
-                                    <ListItemIcon>
-                                        <EventIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={value} classes={{ primary: classes.drawer.primary }} />
+                                <ListItem selected={this.state.activeDrawer === index} onClick={(e) => this.handleDrawerClick(e, "activeDrawer", value, index)} key={value} button>
+                                    <ListItemIcon>{drawerConfig[index].icon}</ListItemIcon>
+                                    <ListItemText disableTypography primary={value} />
                                 </ListItem>
                             ))}
                         </List>
@@ -174,11 +210,12 @@ class Header extends Component {
                                         </Grow>
                                     )}
                                 </Popper>
+                                <img src={LogoWhite} style={{ width: "90px" }} />
                             </Grid>
                         </Grid>
                     </Toolbar>
                 </AppBar>
-                <Hidden xsUp>
+                <Hidden smUp>
                     <Drawer
                         open={this.state.mobileOpen}
                         onClose={this.handleDrawerToggle}
@@ -199,7 +236,7 @@ class Header extends Component {
                         onClose={this.handleDrawerToggle}
                         variant="permanent"
                         classes={{
-                            paper: classes.drawerPaper
+                            paper: classNames(classes.drawerPaper, classes.drawerPaperMd)
                         }}
                     >
                         {drawer}

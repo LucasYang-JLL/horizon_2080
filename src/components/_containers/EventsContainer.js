@@ -1,6 +1,5 @@
 import { connect } from "react-redux";
-import { selectLanguage, slideDirection } from "../_actions/header";
-import Header from "../Header";
+import Events from "../Events";
 
 // redux provided wrapper to map state to props
 const mapStateToProps = (state) => {
@@ -12,16 +11,13 @@ const mapStateToProps = (state) => {
 // redux provided wrapper to map dispatch to props
 const mapDispatchToProps = (dispatch) => {
     return {
-        selectLanguage: (value) => {
-            dispatch(selectLanguage(value));
-        },
-        slideDirection: (value) => {
-            dispatch(slideDirection(value));
-        }
+        // selectLanguage: (value) => {
+        //     dispatch(selectLanguage(value));
+        // },
     };
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Header);
+)(Events);

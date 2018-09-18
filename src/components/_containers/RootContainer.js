@@ -11,7 +11,7 @@ import zh from "react-intl/locale-data/zh";
 
 const mapStateToProps = (state) => {
     return {
-        state: state
+        reduxState: state
     };
 };
 
@@ -31,7 +31,7 @@ const translationConfig = {
 
 class RootContainer extends Component {
     render() {
-        let { language } = this.props.state;
+        let { language } = this.props.reduxState;
         return (
             <IntlProvider locale={translationConfig.locale} messages={translationConfig.messages[language]}>
                 <Fragment>

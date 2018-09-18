@@ -4,4 +4,9 @@ const selectLanguage = (value) => ({
     value: value,
 });
 
-export { selectLanguage };
+const slideDirection = (value) => ({
+    type: "SLIDE_DIRECTION",
+    value: value,
+});
+
+export { selectLanguage, slideDirection };

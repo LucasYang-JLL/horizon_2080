@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import Slide from "@material-ui/core/Slide";
 
 const styles = (theme) => ({
     content: {
@@ -15,11 +16,14 @@ const styles = (theme) => ({
 class Performance extends Component {
     render() {
         const { classes } = this.props;
+        const { slideDirection } = this.props.reduxState;
         return (
-            <div className={classes.content}>
-                <div className={classes.toolbar} />
-                Performance
-            </div>
+            <Slide direction={slideDirection} in mountOnEnter unmountOnExit>
+                <div className={classes.content}>
+                    <div className={classes.toolbar} />
+                    Performance
+                </div>
+            </Slide>
         );
     }
 }
