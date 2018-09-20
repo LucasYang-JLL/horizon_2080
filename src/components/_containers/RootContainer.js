@@ -21,10 +21,12 @@ const translationConfig = {
     locale: "en-US",
     messages: {
         en: {
-            "header.drawers": `Performance, Events, Comments / Reply, Actions, Settings`
+            "header.drawers": `Performance, Events, Comments / Reply, Actions, Settings`,
+            "navigation.title": `Target`,
         },
         zh: {
-            "header.drawers": "性能, 活动, 留言 / 回复, 执行, 设置"
+            "header.drawers": "性能, 活动, 留言 / 回复, 执行, 设置",
+            "navigation.title": `目标`,
         }
     }
 };
