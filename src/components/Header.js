@@ -111,9 +111,7 @@ class Header extends Component {
         };
     }
 
-    componentWillUnmount() {
-    
-    }
+    componentWillUnmount() {}
 
     handleDrawerToggle = () => {
         this.setState((state) => ({ mobileOpen: !state.mobileOpen }));

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import Performance from "../Performance";
 import { slideDirection } from "../_actions/header";
+import Details from "../_common/Details";
 
 // redux provided wrapper to map state to props
 const mapStateToProps = (state) => {
@@ -14,11 +14,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         slideDirection: (value) => {
             dispatch(slideDirection(value));
-        }
+        },
     };
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Performance);
+)(Details);

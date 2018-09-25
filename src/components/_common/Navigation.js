@@ -23,32 +23,36 @@ const styles = (theme) => ({
 });
 
 class Navigation extends Component {
-
     handleGoBack = () => {
+        this.props.slideFunc("left");
         this.props.history.goBack();
-    }
+    };
 
     render() {
-        const { classes, pathname } = this.props;
-        console.log(pathname);
-        // const showButton
+        let { classes, depth, component } = this.props;
+        const showButton = depth > 1 ? true : false;
+        console.log(this.props);
         return (
             <div className={classes.navigationRoot}>
-                <Button mini variant="fab" color="primary" className={classes.button} onClick={this.handleGoBack}>
-                    <KeyboardArrowLeftIcon />
-                </Button>
-                <FormattedMessage id={`navigation.title`}>
-                    {(name) => {
-                        return <span style={{ fontWeight: "bold", fontSize: "24px" }}>{name}</span>;
+                {showButton ? (
+                    <Button mini variant="fab" color="primary" className={classes.button} onClick={this.handleGoBack}>
+                        <KeyboardArrowLeftIcon />
+                    </Button>
+                ) : null}
+                <FormattedMessage id={`navigation.${component}.title`}>
+                    {(title) => {
+                        console.log(depth);
+                        let titleArr = title.split(",");
+                        depth = depth <= 1 ? 0 : depth;
+                        if (depth >= titleArr.length) {
+                            depth = titleArr.length - 1;
+                        }
+                        return <span style={{ fontWeight: "bold", fontSize: "24px" }}>{titleArr[depth]}</span>;
                     }}
                 </FormattedMessage>
             </div>
         );
     }
 }
-
-Navigation.PropTypes = {
-    classes: PropTypes.object.isRequired
-};
 
 export default withStyles(styles)(Navigation);

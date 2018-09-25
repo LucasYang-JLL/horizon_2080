@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Navigation from "./_common/Navigation";
 import EnhancedTable from "./_common/Table";
+import { Route } from "react-router-dom";
+import DetailsContainer from "./_containers/DetailsContainer";
 
 const styles = (theme) => ({
     content: {
@@ -29,17 +31,19 @@ const styles = (theme) => ({
 });
 
 class Performance extends Component {
+    state = {};
+
     render() {
         const { classes, history } = this.props;
-        const { slideDirection } = this.props.reduxState;
+        const { slideState } = this.props.reduxState;
         const { pathname } = this.props.location;
-        console.log(this.props);
+        let depth = pathname.split("/").filter((value) => value !== "").length;
         return (
-            <Slide direction={slideDirection} in mountOnEnter unmountOnExit>
+            <Slide direction={slideState} in mountOnEnter unmountOnExit>
                 <div className={classes.content}>
                     <div className={classes.toolbar} />
-                    <Navigation pathname={pathname} history={history} />
-                    <EnhancedTable />
+                    <Navigation depth={depth} history={history} slideFunc={this.props.slideDirection} component="performance" />
+                    {depth <= 1 ? <EnhancedTable {...this.props} /> : <Route path="/performance/:id" component={DetailsContainer} />}
                 </div>
             </Slide>
         );

@@ -16,9 +16,9 @@ const styles = (theme) => ({
 class Comments extends Component {
     render() {
         const { classes } = this.props;
-        const { slideDirection } = this.props.reduxState;
+        const { slideState } = this.props.reduxState;
         return (
-            <Slide direction={slideDirection} in mountOnEnter unmountOnExit>
+            <Slide direction={slideState} in mountOnEnter unmountOnExit>
                 <div className={classes.content}>
                     <div className={classes.toolbar} />
                     Comments

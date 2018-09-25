@@ -8,7 +8,7 @@ const language = (lang = "en", action) => {
     }
 };
 
-const slideDirection = (direction = "down", action) => {
+const slideState = (direction = "down", action) => {
     switch (action.type) {
         case "SLIDE_DIRECTION":
             return action.value;
@@ -17,4 +17,4 @@ const slideDirection = (direction = "down", action) => {
     }
 };
 
-export { language, slideDirection };
+export { language, slideState };
