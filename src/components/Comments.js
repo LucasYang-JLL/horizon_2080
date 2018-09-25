@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import Navigation from "./_common/Navigation";
 import classNames from "classnames";
+import Tabs from "./_common/Tabs";
 
 const styles = (theme) => ({
     root: {
@@ -17,10 +18,11 @@ const styles = (theme) => ({
         position: "relative",
         top: 0,
         right: 0,
-        width: 240,
+        // width: "30%",
         whiteSpace: "nowrap",
         height: "100%",
         alignSelf: "flex-end",
+        overflowX: "hidden",
         // marginLeft: "auto"
     },
     dockedRootMd: {
@@ -52,7 +54,7 @@ class Comments extends Component {
                 <Paper className={classNames(classes.dockedRoot, classes.dockedRootMd)}>
                     <div className={classNames(classes.toolbar, classes.toolbarMd)} />
                     {/* <Navigation depth={depth} history={history} slideFunc={this.props.slideDirection} component="comments" /> */}
-                    <h3>Comments</h3>
+                    <Tabs />
                 </Paper>
             </Slide>
         ) : (

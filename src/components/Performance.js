@@ -17,13 +17,17 @@ const styles = (theme) => ({
         padding: theme.spacing.unit * 3,
         [theme.breakpoints.up("md")]: {
             paddingRight: 0,
-            paddingBottom: 0,
+            paddingBottom: 0
         },
         minWidth: 0 // So the Typography noWrap works
     },
     root: {
         width: "100%",
-        marginTop: theme.spacing.unit * 3
+        marginTop: theme.spacing.unit * 3,
+        [theme.breakpoints.up("md")]: {
+            marginRight: theme.spacing.unit * 3,
+            marginBottom: theme.spacing.unit * 3
+        }
     },
     table: {
         minWidth: 1020
