@@ -23,10 +23,12 @@ const translationConfig = {
         en: {
             "header.drawers": `Performance, Events, Comments / Reply, Actions, Settings`,
             "navigation.performance.title": `Target, Details`,
+            "navigation.comments.title": `My Comments`,
         },
         zh: {
             "header.drawers": "性能, 活动, 留言 / 回复, 执行, 设置",
             "navigation.performance.title": `目标, 详情`,
+            "navigation.comments.title": `我的留言`,
         }
     }
 };

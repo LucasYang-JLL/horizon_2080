@@ -113,6 +113,8 @@ class EnhancedTable extends React.Component {
         const selectedIndex = selected.indexOf(id);
         let newSelected = [];
         console.log(this.props, id);
+        this.props.slideDirection("left");
+        this.props.history.push(`${this.props.match.path}/${id}`);
         // if (selectedIndex === -1) {
         //     newSelected = newSelected.concat(selected, id);
         // } else if (selectedIndex === 0) {
@@ -122,7 +124,6 @@ class EnhancedTable extends React.Component {
         // } else if (selectedIndex > 0) {
         //     newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
         // }
-        this.props.history.push(`${this.props.match.path}/${id}`);
         // this.setState({ selected: newSelected });
     };
 

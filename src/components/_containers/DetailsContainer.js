@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { slideDirection } from "../_actions/header";
-import Details from "../_common/Details";
+import Details from "../sub_components/Details";
 
 // redux provided wrapper to map state to props
 const mapStateToProps = (state) => {

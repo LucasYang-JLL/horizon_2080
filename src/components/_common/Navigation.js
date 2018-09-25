@@ -11,20 +11,23 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
     button: {
-        margin: theme.spacing.unit
+        margin: "0px",
+        width: "40px",
+        minWidth: "40px"
     },
     extendedIcon: {
         marginRight: theme.spacing.unit
     },
     navigationRoot: {
         display: "flex",
-        alignItems: "center"
+        alignItems: "center",
+        height: "30px"
     }
 });
 
 class Navigation extends Component {
     handleGoBack = () => {
-        this.props.slideFunc("left");
+        this.props.slideFunc("right");
         this.props.history.goBack();
     };
 
@@ -35,7 +38,7 @@ class Navigation extends Component {
         return (
             <div className={classes.navigationRoot}>
                 {showButton ? (
-                    <Button mini variant="fab" color="primary" className={classes.button} onClick={this.handleGoBack}>
+                    <Button mini variant="flat" color="primary" className={classes.button} onClick={this.handleGoBack}>
                         <KeyboardArrowLeftIcon />
                     </Button>
                 ) : null}
