@@ -14,12 +14,13 @@ const styles = (theme) => ({
         minWidth: 0 // So the Typography noWrap works
     },
     dockedRoot: {
-        position: "absolute",
+        position: "relative",
         top: 0,
         right: 0,
         width: 240,
         whiteSpace: "nowrap",
         height: "100%",
+        alignSelf: "flex-end",
         // marginLeft: "auto"
     },
     dockedRootMd: {

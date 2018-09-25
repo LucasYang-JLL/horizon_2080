@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Slide from "@material-ui/core/Slide";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -9,14 +9,21 @@ import DetailsContainer from "./_containers/DetailsContainer";
 
 const styles = (theme) => ({
     content: {
+        display: "flex",
+        flexDirection: "column",
         flexGrow: 1,
+        flexWrap: "wrap",
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing.unit * 3,
+        [theme.breakpoints.up("md")]: {
+            paddingRight: 0,
+            paddingBottom: 0,
+        },
         minWidth: 0 // So the Typography noWrap works
     },
     root: {
         width: "100%",
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing.unit * 3
     },
     table: {
         minWidth: 1020
@@ -40,11 +47,14 @@ class Performance extends Component {
         let depth = pathname.split("/").filter((value) => value !== "").length;
         return (
             <Slide direction={slideState} in mountOnEnter unmountOnExit>
-                <div className={classes.content}>
+                <Fragment>
                     <div className={classes.toolbar} />
-                    <Navigation depth={depth} history={history} slideFunc={this.props.slideDirection} component="performance" />
-                    {depth <= 1 ? <EnhancedTable {...this.props} /> : <Route path="/performance/:id" component={DetailsContainer} />}
-                </div>
+                    <div className={classes.content}>
+                        <div className={classes.toolbar} />
+                        <Navigation depth={depth} history={history} slideFunc={this.props.slideDirection} component="performance" />
+                        {depth <= 1 ? <EnhancedTable {...this.props} /> : <Route path="/performance/:id" component={DetailsContainer} />}
+                    </div>
+                </Fragment>
             </Slide>
         );
     }

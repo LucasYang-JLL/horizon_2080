@@ -14,9 +14,10 @@ const styles = (theme) => ({
         minWidth: 0 // So the Typography noWrap works
     },
     root: {
-        width: "66%",
+        alignSelf: "flex-end",
+        width: "60%",
         marginTop: theme.spacing.unit * 3,
-        height: "80%"
+        height: "80%",
     },
     rootMd: {
         [theme.breakpoints.down("sm")]: {
