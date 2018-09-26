@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
-import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
+import Button from "@material-ui/core/Button";
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import Icon from "@material-ui/core/Icon";
-import DeleteIcon from "@material-ui/icons/Delete";
-import NavigationIcon from "@material-ui/icons/Navigation";
+import AddIcon from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
@@ -20,10 +20,23 @@ const styles = (theme) => ({
     },
     navigationRoot: {
         display: "flex",
+        flexDirection: "row",
         alignItems: "center",
-        height: "30px"
+        height: "30px",
+        marginTop: theme.spacing.unit * 3
+    },
+    alignRight: {
+        marginLeft: "auto",
+        [theme.breakpoints.up("md")]: {
+            // marginRight: "20px"
+        }
     }
 });
+
+const button = {
+    add: <AddIcon />,
+    edit: <EditIcon />
+};
 
 class Navigation extends Component {
     handleGoBack = () => {
@@ -32,12 +45,12 @@ class Navigation extends Component {
     };
 
     render() {
-        let { classes, depth, component } = this.props;
-        const showButton = depth > 1 ? true : false;
+        let { classes, depth, component, buttonType, buttonMethod } = this.props;
+        const showNavButton = depth > 1 ? true : false;
         console.log(this.props);
         return (
             <div className={classes.navigationRoot}>
-                {showButton ? (
+                {showNavButton ? (
                     <Button mini variant="flat" color="primary" className={classes.button} onClick={this.handleGoBack}>
                         <KeyboardArrowLeftIcon />
                     </Button>
@@ -53,9 +66,26 @@ class Navigation extends Component {
                         return <span style={{ fontWeight: "bold", fontSize: "24px" }}>{titleArr[depth]}</span>;
                     }}
                 </FormattedMessage>
+                {buttonType ? (
+                    <Button mini variant="fab" color="secondary" className={classNames(classes.button, classes.alignRight)} onClick={buttonMethod}>
+                        {button[buttonType]}
+                    </Button>
+                ) : null}
             </div>
         );
     }
 }
+
+Navigation.propTypes = {
+    classes: PropTypes.object.isRequired,
+    depth: PropTypes.number.isRequired,
+    component: PropTypes.string.isRequired,
+    buttonType: PropTypes.string.isRequired
+};
+
+Navigation.defaultProps = {
+    docked: false,
+    classes: {}
+};
 
 export default withStyles(styles)(Navigation);

@@ -24,11 +24,15 @@ const translationConfig = {
             "header.drawers": `Performance, Events, Comments / Reply, Actions, Settings`,
             "navigation.performance.title": `Target, Details`,
             "navigation.comments.title": `My Comments`,
+            "tab.comments.title": "Comments, Actions",
+            "tab.details.title": "Summary, Event, Sub Target"
         },
         zh: {
-            "header.drawers": "性能, 活动, 留言 / 回复, 执行, 设置",
-            "navigation.performance.title": `目标, 详情`,
+            "header.drawers": "性能, 活动, 留言 / 回复, 笔记, 设置",
+            "navigation.performance.title": `目标, 详细`,
             "navigation.comments.title": `我的留言`,
+            "tab.comments.title": "留言, 笔记",
+            "tab.details.title": "概括, 活动, 子目标"
         }
     }
 };

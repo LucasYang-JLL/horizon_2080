@@ -15,21 +15,21 @@ const styles = (theme) => ({
         minWidth: 0 // So the Typography noWrap works
     },
     dockedRoot: {
-        position: "relative",
-        top: 0,
-        right: 0,
-        // width: "30%",
+        // position: "absolute",
+        // right: 0,
+        width: "30%",
         whiteSpace: "nowrap",
         height: "100%",
         alignSelf: "flex-end",
         overflowX: "hidden",
-        // marginLeft: "auto"
+        marginLeft: theme.spacing.unit * 3
     },
     dockedRootMd: {
         [theme.breakpoints.down("sm")]: {
             overflowX: "hidden",
             width: "100%",
             height: "200px",
+            minHeight: "200px",
             position: "relative",
             margin: "20px auto"
         }
@@ -54,7 +54,7 @@ class Comments extends Component {
                 <Paper className={classNames(classes.dockedRoot, classes.dockedRootMd)}>
                     <div className={classNames(classes.toolbar, classes.toolbarMd)} />
                     {/* <Navigation depth={depth} history={history} slideFunc={this.props.slideDirection} component="comments" /> */}
-                    <Tabs />
+                    <Tabs msgID="tab.comments.title"/>
                 </Paper>
             </Slide>
         ) : (

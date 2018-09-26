@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import classNames from "classnames";
 import CommentsContainer from "../_containers/CommentsContainer";
+import Tabs from "../_common/Tabs";
 
 const styles = (theme) => ({
     content: {
@@ -14,15 +15,23 @@ const styles = (theme) => ({
         minWidth: 0 // So the Typography noWrap works
     },
     root: {
-        alignSelf: "flex-end",
-        width: "60%",
+        alignSelf: "flex-start",
+        width: "67%",
         marginTop: theme.spacing.unit * 3,
-        height: "80%",
+        height: "70%",
+        minHeight: "250px",
+        marginRight: "auto"
     },
-    rootMd: {
+    // rootMd: {
+    //     [theme.breakpoints.down("md")]: {
+    //         width: "50%",
+    //     }
+    // },
+    rootSm: {
         [theme.breakpoints.down("sm")]: {
             width: "100%",
-            height: "300px",
+            height: "250px",
+            minHeight: "250px",
             position: "relative"
         }
     },
@@ -47,11 +56,9 @@ class Details extends Component {
         return (
             <Fragment>
                 <Slide direction={slideState} in mountOnEnter unmountOnExit>
-                    <Paper className={classNames(classes.root, classes.rootMd)}>
-                        <div className={classes.content}>
-                            Details/
-                            {this.props.match.params.id}
-                        </div>
+                    <Paper className={classNames(classes.root, classes.rootMd, classes.rootSm)}>
+                        <Tabs msgID="tab.details.title" fullWidth={false} />
+                        <div className={classes.content} />
                     </Paper>
                 </Slide>
                 <CommentsContainer location={this.props.location} docked={true} />
