@@ -43,18 +43,25 @@ const styles = (theme) => ({
 });
 
 class Comments extends Component {
+    state = {
+        activeTab: 0
+    };
+    handleTabChange = (event, value) => {
+        this.setState({ activeTab: value }, () => {
+            console.log(this.state.activeTab);
+        });
+    };
     render() {
         const { classes, docked, history } = this.props;
         const { slideState } = this.props.reduxState;
         const { pathname } = this.props.location;
         let depth = pathname.split("/").filter((value) => value !== "").length;
-        console.log(this.props);
         return docked ? (
             <Slide direction={"left"} in mountOnEnter unmountOnExit>
                 <Paper className={classNames(classes.dockedRoot, classes.dockedRootMd)}>
                     <div className={classNames(classes.toolbar, classes.toolbarMd)} />
                     {/* <Navigation depth={depth} history={history} slideFunc={this.props.slideDirection} component="comments" /> */}
-                    <Tabs msgID="tab.comments.title"/>
+                    <Tabs activeTab={this.state.activeTab} handleTabChange={this.handleTabChange} msgID="tab.comments.title" />
                 </Paper>
             </Slide>
         ) : (

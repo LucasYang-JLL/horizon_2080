@@ -2,23 +2,11 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
+// import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 import color from "../../MuiTheme/color";
-
-function TabContainer(props) {
-    return (
-        <Typography component="div" style={{ padding: 0 }}>
-            {props.children}
-        </Typography>
-    );
-}
-
-TabContainer.propTypes = {
-    children: PropTypes.node.isRequired
-};
 
 const styles = (theme) => ({
     root: {
@@ -32,32 +20,25 @@ const styles = (theme) => ({
 });
 
 class SimpleTabs extends React.Component {
-    state = {
-        value: 0
-    };
-
     handleChange = (event, value) => {
         this.setState({ value });
     };
 
     render() {
-        const { classes, msgID, fullWidth } = this.props;
-        const { value } = this.state;
+        const { classes, msgID, fullWidth, handleTabChange, activeTab } = this.props;
         return (
             <div className={classes.root}>
                 {/* <AppBar position="static"> */}
                 <FormattedMessage id={msgID}>
                     {(tabName) => (
-                        <Tabs fullWidth={fullWidth} value={value} onChange={this.handleChange}>
-                            {tabName.split(",").map((value, index) => (
-                                <Tab key={index} className={classes.tabRoot} label={value} />
+                        <Tabs fullWidth={fullWidth} value={activeTab} onChange={handleTabChange}>
+                            {tabName.split(",").map((name, index) => (
+                                <Tab key={index} className={classes.tabRoot} label={name} />
                             ))}
                         </Tabs>
                     )}
                 </FormattedMessage>
                 {/* </AppBar> */}
-                {/* {value === 0 && <TabContainer>Item One</TabContainer>}
-                {value === 1 && <TabContainer>Item Two</TabContainer>} */}
             </div>
         );
     }
@@ -66,7 +47,9 @@ class SimpleTabs extends React.Component {
 SimpleTabs.propTypes = {
     classes: PropTypes.object.isRequired,
     msgID: PropTypes.string.isRequired,
-    fullWidth: PropTypes.bool.isRequired
+    fullWidth: PropTypes.bool.isRequired,
+    activeTab: PropTypes.number.isRequired,
+    handleTabChange: PropTypes.func.isRequired
 };
 
 SimpleTabs.defaultProps = {

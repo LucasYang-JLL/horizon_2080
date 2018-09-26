@@ -47,7 +47,6 @@ class Navigation extends Component {
     render() {
         let { classes, depth, component, buttonType, buttonMethod } = this.props;
         const showNavButton = depth > 1 ? true : false;
-        console.log(this.props);
         return (
             <div className={classes.navigationRoot}>
                 {showNavButton ? (
@@ -57,7 +56,6 @@ class Navigation extends Component {
                 ) : null}
                 <FormattedMessage id={`navigation.${component}.title`}>
                     {(title) => {
-                        console.log(depth);
                         let titleArr = title.split(",");
                         depth = depth <= 1 ? 0 : depth;
                         if (depth >= titleArr.length) {
@@ -79,8 +77,8 @@ class Navigation extends Component {
 Navigation.propTypes = {
     classes: PropTypes.object.isRequired,
     depth: PropTypes.number.isRequired,
-    component: PropTypes.string.isRequired,
-    buttonType: PropTypes.string.isRequired
+    component: PropTypes.string.isRequired
+    // buttonType: PropTypes.string.isRequired
 };
 
 Navigation.defaultProps = {

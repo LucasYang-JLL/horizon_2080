@@ -48,16 +48,24 @@ const styles = (theme) => ({
 });
 
 class Details extends Component {
+    state = {
+        activeTab: 0
+    };
+    handleTabChange = (event, value) => {
+        this.setState({ activeTab: value }, () => {
+            console.log(this.state.activeTab);
+        });
+    };
+
     render() {
         const { classes, history } = this.props;
         const { slideState } = this.props.reduxState;
         const { path } = this.props.match;
-        console.log(this.props);
         return (
             <Fragment>
                 <Slide direction={slideState} in mountOnEnter unmountOnExit>
                     <Paper className={classNames(classes.root, classes.rootMd, classes.rootSm)}>
-                        <Tabs msgID="tab.details.title" fullWidth={false} />
+                        <Tabs activeTab={this.state.activeTab} handleTabChange={this.handleTabChange} msgID="tab.details.title" fullWidth={false} />
                         <div className={classes.content} />
                     </Paper>
                 </Slide>
