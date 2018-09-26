@@ -1,4 +1,5 @@
 import { createMuiTheme } from "@material-ui/core/styles";
+import color from "./color";
 
 const MuiTheme = createMuiTheme({
     palette: {
@@ -6,13 +7,13 @@ const MuiTheme = createMuiTheme({
             main: "#212121"
         },
         secondary: {
-            main: "#E30613"
+            main: color.JLLRed
         }
     },
     overrides: {
         MuiListItemText: {
             root: {
-                color: "#808080",
+                color: color.Black50,
                 padding: "0 8px",
             }
         }
