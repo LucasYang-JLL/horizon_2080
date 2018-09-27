@@ -107,10 +107,26 @@ class Header extends Component {
             value: 0,
             mobileOpen: false,
             open: false,
-            activeDrawer: drawerConfig.findIndex(({ link }) => this.props.history.location.pathname.includes(link))
+            activeDrawer: 0
         };
     }
 
+    componentDidMount() {
+        let drawerState = drawerConfig.findIndex(({ link }) => this.props.history.location.pathname.includes(link));
+        this.setState({
+            activeDrawer: drawerState === -1 ? 0 : drawerState // normalize unfound index to above 0
+        });
+    }
+
+    componentWillReceiveProps(props) {
+        const { location } = props.history;
+        let drawerIndex = drawerConfig.findIndex(({ link }) => location.pathname.includes(link));
+        if (drawerIndex !== this.state.activeDrawer) {
+            this.setState({
+                activeDrawer: drawerIndex
+            });
+        }
+    }
     componentWillUnmount() {}
 
     handleDrawerToggle = () => {

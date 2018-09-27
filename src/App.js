@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { Router, Route } from "react-router-dom";
+import { Router, Route, Redirect } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import MuiTheme from "./MuiTheme";
@@ -40,7 +40,7 @@ class App extends Component {
                 <MuiThemeProvider theme={MuiTheme}>
                     <div className={classes.root}>
                         <HeaderContainer history={history} />
-                        <Route exact path="/" component={PerformanceContainer} />
+                        <Route exact path="/" render={() => <Redirect push from="/" to="/performance" />} />
                         <Route path="/performance" component={PerformanceContainer} />
                         <Route path="/events" component={EventsContainer} />
                         <Route path="/comments" component={CommentsContainer} />
