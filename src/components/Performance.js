@@ -51,6 +51,8 @@ class Performance extends Component {
         console.log("add performance");
     };
     editPerformance = () => {
+        let { editContent } = this.props.reduxState;
+        this.props.toggleEditButton(!editContent);
         console.log("edit performance");
     };
 
@@ -70,7 +72,7 @@ class Performance extends Component {
                     <div className={contentLayout}>
                         <div className={classes.toolbar} />
                         <Navigation buttonType={buttonIcon} depth={depth} history={history} slideFunc={this.props.slideDirection} buttonMethod={buttonMethod} component="performance" />
-                        {depth <= 1 ? <EnhancedTable {...this.props} /> : <Route path="/performance/:id" component={DetailsContainer} />}
+                        {depth <= 1 ? <EnhancedTable {...this.props} /> : <Route path="/performance/:id" render={(props) => <DetailsContainer {...props} />} />}
                     </div>
                 </Fragment>
             </Slide>

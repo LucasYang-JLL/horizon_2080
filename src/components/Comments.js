@@ -56,6 +56,7 @@ class Comments extends Component {
         const { slideState } = this.props.reduxState;
         const { pathname } = this.props.location;
         let depth = pathname.split("/").filter((value) => value !== "").length;
+        console.log(this.props);
         return docked ? (
             <Slide direction={"left"} in mountOnEnter unmountOnExit>
                 <Paper className={classNames(classes.dockedRoot, classes.dockedRootMd)}>

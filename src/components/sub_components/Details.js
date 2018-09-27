@@ -6,21 +6,24 @@ import Paper from "@material-ui/core/Paper";
 import classNames from "classnames";
 import CommentsContainer from "../_containers/CommentsContainer";
 import Tabs from "../_common/Tabs";
+import Summary from "./Summary";
 
 const styles = (theme) => ({
     content: {
         // flexGrow: 1,
         // backgroundColor: theme.palette.background.default,
         padding: theme.spacing.unit * 3,
-        minWidth: 0 // So the Typography noWrap works
+        minWidth: 0, // So the Typography noWrap works
+        overflowX: "hidden"
     },
     root: {
         alignSelf: "flex-start",
         width: "67%",
         marginTop: theme.spacing.unit * 3,
         height: "70%",
-        minHeight: "250px",
-        marginRight: "auto"
+        minHeight: "350px",
+        marginRight: "auto",
+        overflowX: "hidden"
     },
     // rootMd: {
     //     [theme.breakpoints.down("md")]: {
@@ -29,10 +32,10 @@ const styles = (theme) => ({
     // },
     rootSm: {
         [theme.breakpoints.down("sm")]: {
-            width: "100%",
-            height: "250px",
-            minHeight: "250px",
-            position: "relative"
+            width: "100%"
+        },
+        [theme.breakpoints.down("xs")]: {
+            minHeight: "250px"
         }
     },
     table: {
@@ -52,21 +55,19 @@ class Details extends Component {
         activeTab: 0
     };
     handleTabChange = (event, value) => {
-        this.setState({ activeTab: value }, () => {
-            console.log(this.state.activeTab);
-        });
+        this.setState({ activeTab: value }, () => {});
     };
 
     render() {
         const { classes, history } = this.props;
-        const { slideState } = this.props.reduxState;
+        const { slideState, editContent } = this.props.reduxState;
         const { path } = this.props.match;
         return (
             <Fragment>
                 <Slide direction={slideState} in mountOnEnter unmountOnExit>
                     <Paper className={classNames(classes.root, classes.rootMd, classes.rootSm)}>
                         <Tabs activeTab={this.state.activeTab} handleTabChange={this.handleTabChange} msgID="tab.details.title" fullWidth={false} />
-                        <div className={classes.content} />
+                        {this.state.activeTab === 0 && <Summary editContent={editContent} />}
                     </Paper>
                 </Slide>
                 <CommentsContainer location={this.props.location} docked={true} />

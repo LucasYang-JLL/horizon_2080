@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
-import { slideDirection } from "../_actions/header";
 import Details from "../sub_components/Details";
+import { slideDirection } from "../_actions/header";
+import { toggleEditButton } from "../_actions/performance";
 
 // redux provided wrapper to map state to props
 const mapStateToProps = (state) => {
@@ -15,6 +16,9 @@ const mapDispatchToProps = (dispatch) => {
         slideDirection: (value) => {
             dispatch(slideDirection(value));
         },
+        toggleEditButton: (value) => {
+            dispatch(toggleEditButton(value));
+        }
     };
 };
 
